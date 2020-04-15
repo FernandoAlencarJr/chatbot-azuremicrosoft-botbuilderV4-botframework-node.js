@@ -1,0 +1,41 @@
+{
+    "name": "brbk-chatbot",
+    "version": "1.0.0",
+    "description": "chatBot criado por FernandoAlencarJr para agendamento de horários",
+    "author": "FernandoAlencarJr",
+    "license": "MIT",
+    "main": "index.js",
+    "scripts": {
+        "start": "node ./index.js",
+        "watch": "nodemon ./index.js",
+        "lint": "",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "github.com/FernandoAlencarJr/chatbot-azuremicrosoft-botbuilderV4-botframework-node.js"
+    },
+    "dependencies": {
+        "botbuilder": "~4.7.0",
+        "botbuilder-ai": "^4.8.0",
+        "dotenv-extended": "^2.8.0",
+        "restify": "~8.4.0"
+    },
+    "keywords": [
+        "botbuilder",
+        "chatbot",
+        "chatbotjs",
+        "javascriptbot",
+        "bot-framework",
+        "node.js"
+    ],
+    "devDependencies": {
+        "eslint": "^6.6.0",
+        "eslint-config-standard": "^14.1.0",
+        "eslint-plugin-import": "^2.18.2",
+        "eslint-plugin-node": "^10.0.0",
+        "eslint-plugin-promise": "^4.2.1",
+        "eslint-plugin-standard": "^4.0.1",
+        "nodemon": "~1.19.4"
+    }
+}
