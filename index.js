@@ -3,16 +3,13 @@ require('dotenv-extended').load({
 })
 
 const restify = require('restify')
-const { BotFrameworkAdapter } = require('botbuilder')
+const { BotFrameworkAdapter,ConversationState,MemoryStorage,UserState } = require('botbuilder')
 const { EmptyBot } = require('./bot')
+const { dialogoUsuario } = require('./Dialogos/dialogoUsuario')
 
-const server = restify.createServer()
-server.listen(process.env.port || process.env.PORT || 3978, () => {
-  console.log(`\n${server.name} escutando ${server.url}`)
-  console.log('FernandoAlencarJr')
-  console.log('Não se esqueça de baixar o botFrameworkV4')
-  console.log('Siga minha página no GitHub !')
-})
+
+
+
 
 const adapter = new BotFrameworkAdapter({
     appId: process.env.MicrosoftAppID,
@@ -29,7 +26,20 @@ adapter.onTurnError = async (context, error) => {
     await context.sendActivity('para o bot continuar funcionando arrume este erro.')
 }
 
-const myBot = new EmptyBot()
+const memoryStorage = new MemoryStorage()
+
+const conversationState = new ConversationState(memoryStorage)
+const userState = new UserState(memoryStorage)
+const dialogo = new dialogoUsuario(userState)
+const myBot = new EmptyBot(conversationState, userState, dialogo)
+
+const server = restify.createServer()
+server.listen(process.env.port || process.env.PORT || 3978, () => {
+  console.log(`\n${server.name} escutando ${server.url}`)
+  console.log('FernandoAlencarJr')
+  console.log('Não se esqueça de baixar o botFrameworkV4')
+  console.log('Siga minha página no GitHub !')
+})
 
 server.post('/api/messages', (req, res) => {
     adapter.processActivity(req, res, async (context) => {
