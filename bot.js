@@ -7,15 +7,13 @@ const { LuisRecognizer } = require('botbuilder-ai')
 class EmptyBot extends ActivityHandler {
     constructor(conversationState, userState, dialog) {
       super();
-      if (!conversationState) throw new Error('[DialogBot]: Missing parameter. conversationState is required');
-      if (!userState) throw new Error('[DialogBot]: Missing parameter. userState is required');
-      if (!dialog) throw new Error('[DialogBot]: Missing parameter. dialog is required');
+
       this.conversationState = conversationState;
       this.userState = userState;
       this.dialog = dialog;
       this.dialogState = this.conversationState.createProperty('DialogState');
       this.onMessage(async (context, next) => {
-        console.log('Running dialog with Message Activity.');
+        console.log('executando o diálogo');
 
         await this.dialog.run(context, this.dialogState);
 
@@ -37,7 +35,7 @@ class EmptyBot extends ActivityHandler {
             const membersAdded = context.activity.membersAdded
             for (let cnt = 0; cnt < membersAdded.length; ++cnt) {
                 if (membersAdded[cnt].id !== context.activity.recipient.id) {
-                    await context.sendActivity('Bem Vindo !')
+                    await context.sendActivity('Bem Vindo!')
                 }
             }
             await next()
@@ -45,7 +43,6 @@ class EmptyBot extends ActivityHandler {
   }
   async run(context) {
     await super.run(context);
-
     await this.conversationState.saveChanges(context, false);
     await this.userState.saveChanges(context, false);
 }
